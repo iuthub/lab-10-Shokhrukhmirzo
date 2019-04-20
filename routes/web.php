@@ -30,8 +30,8 @@ Route::get('about', function () {
     return view('other.about');
 })->name('other.about');
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('', [
+Route::group(['prefix' => 'admin', 'middleware'=>['auth']], function() {
+    Route::get('/', [
         'uses' => 'PostController@getAdminIndex',
         'as' => 'admin.index'
     ]);
@@ -61,3 +61,6 @@ Route::group(['prefix' => 'admin'], function() {
         'as' => 'admin.update'
     ]);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
